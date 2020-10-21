@@ -19,11 +19,12 @@ export default class Cache {
         this.namespace = options.namespace;
         this.backend = options.backend;
         this.policy = options.policy;
-        let ttl = this.policy.stdTTL;
+        const ttl = this.policy.stdTTL;
         if (!ttl || typeof(ttl) !== 'number') {
-            ttl = 0;
+            this.policy.stdTTL = 0;
+        } else {
+            this.policy.stdTTL = ttl;
         }
-        this.policy.stdTTL = ttl;
     }
 
     public async clearAll() {
