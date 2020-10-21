@@ -110,7 +110,7 @@ export default class Cache {
         if (entry) {
             value = entry.value;
             if (this.policy.stdTTL > 0) {
-                const deadline = entry.created.getTime() + this.policy.stdTTL * 1000;
+                const deadline = new Date(entry.created).getTime() + this.policy.stdTTL * 1000;
                 const now = Date.now();
                 if (deadline < now) {
                     this.remove(key);
@@ -131,7 +131,7 @@ export default class Cache {
 
     public async set(key: string, value: string): Promise<void> {
         const entry = {
-            created: new Date(),
+            created: Date.now(),
             value
         };
 
